@@ -1,9 +1,10 @@
 
 //import React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+//import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
+import Prompt from '../Component/Prompt/Prompt';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '1A2027',
@@ -19,24 +20,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const MainLayout=()=> {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-    <Grid container spacing={2}  >
+
+    <Grid container spacing={2}  columnSpacing={4} rowSpacing={4} >
         <Grid container size={10} direction={'column'}>
             <Grid  item>
             <Item>graph view</Item>
         </Grid>
         <Grid item>
-            <Item>prompt</Item>
+         <Item><Prompt/></Item>
         </Grid>
     </Grid>
       <Grid container size={2} spacing={2}>
-        <Grid Item>
+        <Grid Item size={8}>
             <Item>side bar</Item>
 </Grid>
 
 </Grid>
       </Grid>
-      </Box>
+
 
   );
 }
