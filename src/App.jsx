@@ -1,9 +1,9 @@
-import Button from '@mui/material/Button'
+import MainLayout from './Layout/MainLayout'
 
 function App() {
   return (
     <>
-      <Button variant='contained'>Click me</Button>
+     <MainLayout/>
     </>
   )
 }
