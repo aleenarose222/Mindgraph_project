@@ -22,12 +22,12 @@ const Prompt=({onAttachFileClick})=> {
   
       <Grid container spacing={2}>
         <Grid size={10}>
-          <Item>size=8 
-          <IconButton aria-label="attachment" onClick={onAttachFileClick}>
-          <AttachFileIcon/>
-            </IconButton>  
+          <Item>size=8  
        </Item>
         </Grid>
+        <IconButton aria-label="attachment" onClick={onAttachFileClick}>
+          <AttachFileIcon/>
+            </IconButton> 
         <RoundedButton/>
        
       </Grid>
