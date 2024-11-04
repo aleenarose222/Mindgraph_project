@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
 const StyledButton = styled(Button)({
-    borderRadius:'50%',
+    borderRadius:'100%',
     color:'black',
-    backgroundColor:'blue',
+    backgroundColor:'yellow',
+    marginLeft:"auto",
 });
 
 const RoundedButton=()=>{
