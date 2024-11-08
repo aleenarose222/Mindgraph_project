@@ -29,10 +29,10 @@ const MainLayout=()=> {
         else setVisible(true)
   }
   return (
-
-    <Grid  backgroundColor={'#000'} container spacing={2}  columnSpacing={4} rowSpacing={4} >
-        <Grid container size={10} direction={'column'}>
-            <Grid  item>
+    
+    <Grid flex backgroundColor={'#000'} container spacing={2}  columnSpacing={4} rowSpacing={4} >
+        <Grid container flex size={10} direction={'column'}>
+            <Grid flex >
             <Item>
              
             <Box component="section" sx={{ p: 2, border: '1px dashed grey' , height: 450}}>
@@ -42,12 +42,12 @@ const MainLayout=()=> {
             </Item>
      
         </Grid>
-        <Grid size={12}>
+        <Grid  flex size={12}>
          <Item><Prompt onAttachFileClick={toggleAttachment}/></Item>
         </Grid>
     </Grid>
-      <Grid container size={2} spacing={2}>
-        <Grid size={12}>
+      <Grid  flex  container size={2} spacing={2}>
+        <Grid  flex  size={12}>
             <Item>side bar
             <Box component="section" sx={{ p: 2, border: '1px dashed grey' , height:450 ,width:100}}>
       This Box renders as an HTML section element.
@@ -58,7 +58,7 @@ const MainLayout=()=> {
 
 </Grid>
       </Grid>
-
+     
 
   );
 }
