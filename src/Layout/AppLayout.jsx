@@ -6,6 +6,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ForceGraph3D from 'react-force-graph-3d';
 import SpriteText from "three-spritetext";
 import * as THREE from 'three';
+import { uploadDocument } from '../api/api';
 
 const AppLayout = () => {
   const [openUpload, setOpenUpload] = useState(false);
@@ -29,7 +30,66 @@ const AppLayout = () => {
  const processPrompt = (prompt) => {
   return `Processed output for prompt: ${prompt}`; 
   };
+ 
   
+
+  const [file, setFile] = useState(null);
+
+  // This function runs when the file is selected
+  async function handleChange(event) {
+    const selectedFile = event.target.files[0]; // Get the selected file from the input
+
+    if (!selectedFile) {
+      console.log('No file selected!');
+      return;
+    }
+
+    // Update the file state with the selected file
+    setFile(selectedFile);
+
+    // Create FormData after the file is selected
+    const formData = new FormData();
+    formData.append('file', selectedFile); // Append the selected file to FormData
+    formData.append('fileName', selectedFile.name); // Append the file name (optional)
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data', // Important header for file upload
+      },
+    };
+
+    try {
+      // Call the upload function and pass formData and config
+      const res = await uploadDocument(formData, config);
+      if(res.status){
+        handleCloseUpload()
+      }
+      console.log('Upload successful:', res);
+    } catch (error) {
+      console.log('Error uploading file:', error);
+    }
+  }
+
+
+  // const [file, setFile] = useState(null)
+
+  // async function handleChange(event) {
+  //   setFile(event.target.files[0])
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('fileName', file.name);
+  //   const config = {
+  //     headers: {
+  //       'content-type': 'multipart/form-data',
+  //     },
+  //   };
+  //   try {
+  //     const res = await uploadDocument(file,config)
+  //   } catch (error) {
+  //     console.log(error);
+      
+  //   }
+  // }
   const graphData = {
     "nodes": [
       {
@@ -188,7 +248,9 @@ const AppLayout = () => {
       bgcolor: '#333', transform: 'scale(1)'
     }
   }}>
+
     <Box sx={{ width: '100%', height: '100%' }}>
+    
       <ForceGraph3D
         graphData={graphData}
         width={window.innerWidth-500} 
@@ -313,7 +375,7 @@ const AppLayout = () => {
             >
               <AttachFileIcon sx={{ fontSize: '1.25rem' }} />
               Choose File
-              <input type="file" hidden />
+              <input type="file" hidden onChange={handleChange}/>
             </Button>
             <Button
               variant="outlined"

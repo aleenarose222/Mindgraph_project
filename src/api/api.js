@@ -2,10 +2,15 @@ import axios from "axios";
 
 const PORT = 8000;
 
-export const uploadDocument = async (data) => {
+export const uploadDocument = async (data, config) => {
   try {
-    const response = await axios.post(`http://localhost:${PORT}/api/data`); // replace with your backend endpoint
-    console.log(response.data); // Use response data in your component
+    // const response = await axios.post(
+    //   `http://localhost:${PORT}/api/data`,
+    //   data,
+    //   config
+    // ); // replace with your backend endpoint
+    console.log(data, config); // Use response data in your component
+    return { status: true };
   } catch (error) {
     console.error("Error fetching data:", error);
   }
