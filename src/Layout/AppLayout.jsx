@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import { Box, CssBaseline, Typography, TextField, Button, IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material';
@@ -6,14 +5,11 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ForceGraph3D from 'react-force-graph-3d';
 import SpriteText from "three-spritetext";
 import * as THREE from 'three';
-import { uploadDocument } from '../api/api';
-import Paragraph from '../Component/Paragraph';
 
 const AppLayout = () => {
   const [openUpload, setOpenUpload] = useState(false);
   const [sidebarContent, setSidebarContent] = useState(''); 
   const [prompt, setPrompt] = useState('');
-  const [graphData,setGraphData] = useState([]);
 
   const handleUploadClick = () => {
     setOpenUpload(true);
@@ -32,147 +28,88 @@ const AppLayout = () => {
  const processPrompt = (prompt) => {
   return `Processed output for prompt: ${prompt}`; 
   };
- 
   
-
-  const [file, setFile] = useState(null);
-
-  // This function runs when the file is selected
-  async function handleChange(event) {
-    const selectedFile = event.target.files[0]; // Get the selected file from the input
-
-    if (!selectedFile) {
-      console.log('No file selected!');
-      return;
-    }
-
-    // Update the file state with the selected file
-    setFile(selectedFile);
-
-    // Create FormData after the file is selected
-    const formData = new FormData();
-    formData.append('file', selectedFile); // Append the selected file to FormData
-    formData.append('fileName', selectedFile.name); // Append the file name (optional)
-
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data', // Important header for file upload
+  const graphData = {
+    "nodes": [
+      {
+        "id": "c672d14a-e46a-4060-a051-cda693672ca1",
+        "name": "hemaraj",
+        "val": "Hemraj was the cook cum household help of Aarushi Talwar's family. He was considered to be a suspect and eventually found dead on an adjacent terrace with his door locked."
       },
-    };
-
-    try {
-      // Call the upload function and pass formData and config
-      const res = await uploadDocument(formData, config);
-      if(res.status){
-        handleCloseUpload()
+      {
+        "id": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
+        "name": "aarushi",
+        "val": "A 14-year-old girl who was a student and daughter of Dr. Rajesh Talwar, a physician. She had a bed room that was locked from outside by her father, but it could only be opened from inside by herself. Her room was cleaned recently, with the evidence of a thorough wash-up noted in the bed cover at the site of the pelvic region."
+      },
+      {
+        "id": "cc926f08-83ba-423d-931b-8df7784f79f1",
+        "name": "talwarsr\u00e2",
+        "val": "Dr. Rajesh Talwar \n\n* A doctor\n* Father of Aarushi and Nupur\n* Husband of Nupur Talwar\n* Suspected to be involved in his daughter's murder due to allegations of honor-killing\n* Initially suspected the cook cum house help, Hemraj, as the murderer but later found dead\n* Involved in a decade-long trial related to Aarushi's murder\n* Convicted and sentenced to life imprisonment\n* Later acquitted on appeal"
+      },
+      {
+        "id": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
+        "name": "arushi\u00e2",
+        "val": "Female victim who was 14 years old at the time of her murder, discovered to have been murdered and raped by unknown assailants, with evidence of a sharp-cut injury on her throat and cleaning of her buttock area suggesting sexual activity recently, later found that she had a secret relationship which led to her death, her family members including her father Dr. Rajesh Talwar and mother Nupur Talwar were initially suspected and later convicted for her murder due to alleged honor killing."
+      },
+      {
+        "id": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
+        "name": "hemraj",
+        "val": "Hemraj was the cook cum household help of Dr. Rajesh Talwar. He had a close relationship with Aarushi, the victim. On the night of the incidence, he went missing and his bed room showed evidence that he had escaped out. His body was later found on an adjacent terrace, dead."
       }
-      console.log('Upload successful:', res);
-    } catch (error) {
-      console.log('Error uploading file:', error);
-    }
+    ],
+    "links": [
+      {
+        "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
+        "target": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
+        "linkLabel": "Same Person"
+      },
+      {
+        "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
+        "target": "c672d14a-e46a-4060-a051-cda693672ca1",
+        "linkLabel": "Victim and Killer"
+      },
+      {
+        "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
+        "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
+        "linkLabel": " Housekeeper/Cook and Servant"
+      },
+      {
+        "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
+        "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
+        "linkLabel": "Father-Child"
+      },
+      {
+        "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
+        "target": "c672d14a-e46a-4060-a051-cda693672ca1",
+        "linkLabel": "Accomplices"
+      },
+      {
+        "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
+        "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
+        "linkLabel": "Victim and killer."
+      },
+      {
+        "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
+        "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
+        "linkLabel": "Father-Daughter"
+      },
+      {
+        "source": "c672d14a-e46a-4060-a051-cda693672ca1",
+        "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
+        "linkLabel": "Murderer and Victim"
+      },
+      {
+        "source": "c672d14a-e46a-4060-a051-cda693672ca1",
+        "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
+        "linkLabel": "Employed servant and Household help."
+      },
+      {
+        "source": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
+        "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
+        "linkLabel": "Employed"
+      }
+    ]
   }
-
-
-  // const [file, setFile] = useState(null)
-
-  // async function handleChange(event) {
-  //   setFile(event.target.files[0])
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-  //   formData.append('fileName', file.name);
-  //   const config = {
-  //     headers: {
-  //       'content-type': 'multipart/form-data',
-  //     },
-  //   };
-  //   try {
-  //     const res = await uploadDocument(file,config)
-  //   } catch (error) {
-  //     console.log(error);
-      
-  //   }
-  // }
-  // const graphData = {
-  //   "nodes": [
-  //     {
-  //       "id": "c672d14a-e46a-4060-a051-cda693672ca1",
-  //       "name": "hemaraj",
-  //       "val": "Hemraj was the cook cum household help of Aarushi Talwar's family. He was considered to be a suspect and eventually found dead on an adjacent terrace with his door locked."
-  //     },
-  //     {
-  //       "id": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
-  //       "name": "aarushi",
-  //       "val": "A 14-year-old girl who was a student and daughter of Dr. Rajesh Talwar, a physician. She had a bed room that was locked from outside by her father, but it could only be opened from inside by herself. Her room was cleaned recently, with the evidence of a thorough wash-up noted in the bed cover at the site of the pelvic region."
-  //     },
-  //     {
-  //       "id": "cc926f08-83ba-423d-931b-8df7784f79f1",
-  //       "name": "talwarsr\u00e2",
-  //       "val": "Dr. Rajesh Talwar \n\n* A doctor\n* Father of Aarushi and Nupur\n* Husband of Nupur Talwar\n* Suspected to be involved in his daughter's murder due to allegations of honor-killing\n* Initially suspected the cook cum house help, Hemraj, as the murderer but later found dead\n* Involved in a decade-long trial related to Aarushi's murder\n* Convicted and sentenced to life imprisonment\n* Later acquitted on appeal"
-  //     },
-  //     {
-  //       "id": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
-  //       "name": "arushi\u00e2",
-  //       "val": "Female victim who was 14 years old at the time of her murder, discovered to have been murdered and raped by unknown assailants, with evidence of a sharp-cut injury on her throat and cleaning of her buttock area suggesting sexual activity recently, later found that she had a secret relationship which led to her death, her family members including her father Dr. Rajesh Talwar and mother Nupur Talwar were initially suspected and later convicted for her murder due to alleged honor killing."
-  //     },
-  //     {
-  //       "id": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
-  //       "name": "hemraj",
-  //       "val": "Hemraj was the cook cum household help of Dr. Rajesh Talwar. He had a close relationship with Aarushi, the victim. On the night of the incidence, he went missing and his bed room showed evidence that he had escaped out. His body was later found on an adjacent terrace, dead."
-  //     }
-  //   ],
-  //   "links": [
-  //     {
-  //       "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
-  //       "target": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
-  //       "linkLabel": "Same Person"
-  //     },
-  //     {
-  //       "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
-  //       "target": "c672d14a-e46a-4060-a051-cda693672ca1",
-  //       "linkLabel": "Victim and Killer"
-  //     },
-  //     {
-  //       "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
-  //       "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
-  //       "linkLabel": " Housekeeper/Cook and Servant"
-  //     },
-  //     {
-  //       "source": "bd60b2f7-959d-41d0-8e85-f6c0195df41d",
-  //       "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
-  //       "linkLabel": "Father-Child"
-  //     },
-  //     {
-  //       "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
-  //       "target": "c672d14a-e46a-4060-a051-cda693672ca1",
-  //       "linkLabel": "Accomplices"
-  //     },
-  //     {
-  //       "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
-  //       "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
-  //       "linkLabel": "Victim and killer."
-  //     },
-  //     {
-  //       "source": "fd92adc7-823b-4b68-8ed9-aa756d60dfe0",
-  //       "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
-  //       "linkLabel": "Father-Daughter"
-  //     },
-  //     {
-  //       "source": "c672d14a-e46a-4060-a051-cda693672ca1",
-  //       "target": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
-  //       "linkLabel": "Murderer and Victim"
-  //     },
-  //     {
-  //       "source": "c672d14a-e46a-4060-a051-cda693672ca1",
-  //       "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
-  //       "linkLabel": "Employed servant and Household help."
-  //     },
-  //     {
-  //       "source": "f0fbc609-9b6f-4c1e-9a68-580cf0b2e771",
-  //       "target": "cc926f08-83ba-423d-931b-8df7784f79f1",
-  //       "linkLabel": "Employed"
-  //     }
-  //   ]
-  // }
 
   return (
     <Box sx={{ display: 'flex', height: '100vh', bgcolor: '#101010' }}>
@@ -180,6 +117,7 @@ const AppLayout = () => {
 
 {/* Sidebar */}
 <Grid item sx={{
+  
   width: 400,
   bgcolor: 'linear-gradient(135deg, #E91E63, #2196F3)',
   color: '#fff',
@@ -197,7 +135,6 @@ const AppLayout = () => {
     ml:3
   },
 }}>
-  <Paragraph/>
   <Typography variant="h5" sx={{
     fontWeight: 'bold', fontFamily: 'sans-serif', letterSpacing: 1, color: '#fff', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
   }}>
@@ -251,9 +188,7 @@ const AppLayout = () => {
       bgcolor: '#333', transform: 'scale(1)'
     }
   }}>
-
     <Box sx={{ width: '100%', height: '100%' }}>
-    
       <ForceGraph3D
         graphData={graphData}
         width={window.innerWidth-500} 
@@ -378,7 +313,7 @@ const AppLayout = () => {
             >
               <AttachFileIcon sx={{ fontSize: '1.25rem' }} />
               Choose File
-              <input type="file" hidden onChange={handleChange}/>
+              <input type="file" hidden />
             </Button>
             <Button
               variant="outlined"
